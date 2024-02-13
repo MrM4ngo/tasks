@@ -10,6 +10,7 @@ function App(): JSX.Element {
                 automatically reload. | Hello World
             </p>
             <h2> Test</h2>
+            <img src="C:\Users\thebi\Desktop\ptp-gallery-3-2400x1200-c-default.jpg" />
         </div>
     );
 }
