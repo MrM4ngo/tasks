@@ -9,8 +9,7 @@ function App(): JSX.Element {
                 Edit <code>src/App.tsx</code> and save. This page will
                 automatically reload. | Hello World
             </p>
-            <h2> Test</h2>
-            <img src="C:\Users\thebi\Desktop\ptp-gallery-3-2400x1200-c-default.jpg" />
+            <h2>Second Header</h2>
         </div>
     );
 }
