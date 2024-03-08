@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./App.css";
 import { ChangeType } from "./components/ChangeType";
 import { RevealAnswer } from "./components/RevealAnswer";
@@ -10,20 +10,20 @@ import { DoubleHalf } from "./bad-components/DoubleHalf";
 import { ColoredBox } from "./bad-components/ColoredBox";
 import { ShoveBox } from "./bad-components/ShoveBox";
 import { ChooseTeam } from "./bad-components/ChooseTeam";
+import { CheckAnswer } from "./form-components/CheckAnswer";
+import { GiveAttempts } from "./form-components/GiveAttempts";
+import { EditMode } from "./form-components/EditMode";
+import { MultipleChoiceQuestion } from "./form-components/MultipleChoiceQuestion";
+import { ChangeColor } from "./form-components/ChangeColor";
 
 function App(): JSX.Element {
     // Example of using useState
-    const [showCounter, setShowCounter] = useState<boolean>(true);
-
-    // Function to toggle the visibility of Counter component
-    const toggleCounter = () => {
-        setShowCounter((prevShowCounter) => !prevShowCounter);
-    };
 
     return (
         <div className="App">
             <header className="App-header">
-                UD CISC275 with React Hooks and TypeScript | David Bui
+                UD CISC275 with React Hooks and TypeScript | David Bui - Hello
+                World
             </header>
             <hr></hr>
             <CheckAnswer expectedAnswer="42"></CheckAnswer>
@@ -39,8 +39,15 @@ function App(): JSX.Element {
                 expectedAnswer="b"
             ></MultipleChoiceQuestion>
             <hr></hr>
-            {showCounter && <Counter></Counter>}
-            <button onClick={toggleCounter}>Toggle Counter</button>
+            <DoubleHalf></DoubleHalf>
+            <hr></hr>
+            <ChooseTeam></ChooseTeam>
+            <hr></hr>
+            <ColoredBox></ColoredBox>
+            <hr></hr>
+            <ShoveBox></ShoveBox>
+            <hr></hr>
+            <Counter></Counter>
             <hr />
             <RevealAnswer></RevealAnswer>
             <hr />
