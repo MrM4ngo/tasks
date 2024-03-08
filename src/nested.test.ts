@@ -1,3 +1,5 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable indent */
 import { Question } from "./interfaces/question";
 import {
     getPublishedQuestions,
@@ -893,7 +895,9 @@ describe("Testing the Question[] functions", () => {
         ]);
     });
 
- test("Testing the addEditQuestionOption function", () => {
+    // eslint-disable-next-line prettier/prettier
+    // eslint-disable-next-line indent
+    test("Testing the addEditQuestionOption function", () => {
         expect(editOption(BLANK_QUESTIONS, 1, -1, "NEW OPTION")).toEqual([
             {
                 id: 1,
