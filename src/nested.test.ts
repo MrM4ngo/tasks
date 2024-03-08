@@ -893,7 +893,7 @@ describe("Testing the Question[] functions", () => {
         ]);
     });
 
-    test("Testing the editOption function", () => {
+ test("Testing the addEditQuestionOption function", () => {
         expect(editOption(BLANK_QUESTIONS, 1, -1, "NEW OPTION")).toEqual([
             {
                 id: 1,
