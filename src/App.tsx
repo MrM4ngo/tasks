@@ -8,13 +8,22 @@ import { CycleHoliday } from "./components/CycleHoliday";
 import { Counter } from "./components/Counter";
 
 function App(): JSX.Element {
+    // Example of using useState
+    const [showCounter, setShowCounter] = useState<boolean>(true);
+
+    // Function to toggle the visibility of Counter component
+    const toggleCounter = () => {
+        setShowCounter((prevShowCounter) => !prevShowCounter);
+    };
+
     return (
         <div className="App">
             <header className="App-header">
                 UD CISC275 with React Hooks and TypeScript | David Bui
             </header>
             <hr></hr>
-            <Counter></Counter>
+            {showCounter && <Counter></Counter>}
+            <button onClick={toggleCounter}>Toggle Counter</button>
             <hr />
             <RevealAnswer></RevealAnswer>
             <hr />
