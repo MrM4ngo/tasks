@@ -1,15 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
+
+type Question = {
+    id: number;
+    name: string;
+    body: string;
+    expected: string;
+    published: boolean;
+    points: number;
+    options?: string[];
+    type: string;
+};
+
+function getPublishedQuestions(questions: Question[]): Question[] {
+    return questions.filter((question) => question.published);
+}
 
 function CheckAnswer({
     expectedAnswer
 }: {
     expectedAnswer: string;
 }): JSX.Element {
-    const [userAnswer, setUserAnswer] = React.useState<string>("");
+    const [userAnswer, setUserAnswer] = useState<string>("");
+    const [isCorrect, setIsCorrect] = useState<boolean>(false);
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setUserAnswer(event.target.value);
+        setIsCorrect(event.target.value === expectedAnswer);
     };
 
     return (
@@ -19,15 +36,14 @@ function CheckAnswer({
                 value={userAnswer}
                 onChange={handleInputChange}
             />
-            {userAnswer === expectedAnswer ? <span>✔️</span> : <span>❌</span>}
+            {isCorrect ? <span>✔️</span> : <span>❌</span>}
         </div>
     );
 }
 
 function GiveAttempts(): JSX.Element {
-    const [attemptsLeft, setAttemptsLeft] = React.useState<number>(3);
-    const [requestedAttempts, setRequestedAttempts] =
-        React.useState<string>("");
+    const [attemptsLeft, setAttemptsLeft] = useState<number>(3);
+    const [requestedAttempts, setRequestedAttempts] = useState<string>("");
 
     const handleUseAttempt = () => {
         if (attemptsLeft > 0) {
@@ -65,9 +81,9 @@ function GiveAttempts(): JSX.Element {
 }
 
 function EditMode(): JSX.Element {
-    const [editMode, setEditMode] = React.useState<boolean>(false);
-    const [userName, setUserName] = React.useState<string>("Your Name");
-    const [isStudent, setIsStudent] = React.useState<boolean>(true);
+    const [editMode, setEditMode] = useState<boolean>(false);
+    const [userName, setUserName] = useState<string>("Your Name");
+    const [isStudent, setIsStudent] = useState<boolean>(true);
 
     const handleSwitchChange = () => {
         setEditMode((prevMode) => !prevMode);
@@ -121,7 +137,7 @@ function ChangeColor(): JSX.Element {
         "pink",
         "brown"
     ];
-    const [selectedColor, setSelectedColor] = React.useState<string>(colors[0]);
+    const [selectedColor, setSelectedColor] = useState<string>(colors[0]);
 
     const handleColorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSelectedColor(event.target.value);
@@ -160,9 +176,7 @@ function MultipleChoiceQuestions({
     expectedAnswer: string;
     options: string[];
 }): JSX.Element {
-    const [selectedChoice, setSelectedChoice] = React.useState<string>(
-        options[0]
-    );
+    const [selectedChoice, setSelectedChoice] = useState<string>(options[0]);
 
     const handleSelectChange = (
         event: React.ChangeEvent<HTMLSelectElement>
@@ -189,6 +203,32 @@ function MultipleChoiceQuestions({
 }
 
 function App(): JSX.Element {
+    // Sample questions data
+    const SIMPLE_QUESTIONS: Question[] = [
+        {
+            id: 1,
+            name: "Addition",
+            body: "What is 2+2?",
+            expected: "4",
+            published: true,
+            points: 1,
+            type: "short_answer_question"
+        },
+        {
+            id: 5,
+            name: "Colors",
+            body: "Which of these is a color?",
+            expected: "red",
+            published: true,
+            points: 1,
+            type: "multiple_choice_question",
+            options: ["red", "apple", "firetruck"]
+        }
+    ];
+
+    // Get published questions
+    const publishedQuestions = getPublishedQuestions(SIMPLE_QUESTIONS);
+
     return (
         <div className="App">
             <header className="App-header">
@@ -202,10 +242,13 @@ function App(): JSX.Element {
             <GiveAttempts />
             <EditMode />
             <ChangeColor />
-            <MultipleChoiceQuestions
-                expectedAnswer="B"
-                options={["A", "B", "C", "D"]}
-            />
+            {publishedQuestions.map((question) => (
+                <MultipleChoiceQuestions
+                    key={question.id}
+                    expectedAnswer={question.expected}
+                    options={question.options || []}
+                />
+            ))}
         </div>
     );
 }
